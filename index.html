@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Learning Contact Force Models for Connector Insertion">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- KaTeX -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+    integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+    crossorigin="anonymous"
+  />
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+    integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        // customised options
+        // • auto-render specific keys, e.g.:
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        // • rendering keys, e.g.:
+        throwOnError: false,
+      });
+    });
+  </script>
+  <title>Learning Contact Force Models for Connector Insertion</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Learning Contact Force Models for Plug Insertion</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://kevintracy.info">Kevin Tracy</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://rexlab.ri.cmu.edu/">Zachary Manchester</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://jainajinkya.github.io/">Ajinkya Jain</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              Keegan Go</a><sup>2</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://stefan-schaal.net/">Stefan Schaal</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              Tom Erez</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              Yuval Tassa</a><sup>3</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>CMU,</span>
+            <span class="author-block"><sup>2</sup>[Google] Intrinsic,</span>
+            <span class="author-block"><sup>3</sup>Google DeepMind</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="fab fa-github"></i> -->
+                      <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="baseball-ball" class="svg-inline--fa fa-baseball-ball fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M368.5 363.9l28.8-13.9c11.1 22.9 26 43.2 44.1 60.9 34-42.5 54.5-96.3 54.5-154.9 0-58.5-20.4-112.2-54.2-154.6-17.8 17.3-32.6 37.1-43.6 59.5l-28.7-14.1c12.8-26 30-49 50.8-69C375.6 34.7 315 8 248 8 181.1 8 120.5 34.6 75.9 77.7c20.7 19.9 37.9 42.9 50.7 68.8l-28.7 14.1c-11-22.3-25.7-42.1-43.5-59.4C20.4 143.7 0 197.4 0 256c0 58.6 20.4 112.3 54.4 154.7 18.2-17.7 33.2-38 44.3-61l28.8 13.9c-12.9 26.7-30.3 50.3-51.5 70.7 44.5 43.1 105.1 69.7 172 69.7 66.8 0 127.3-26.5 171.9-69.5-21.1-20.4-38.5-43.9-51.4-70.6zm-228.3-32l-30.5-9.8c14.9-46.4 12.7-93.8-.6-134l30.4-10c15 45.6 18 99.9.7 153.8zm216.3-153.4l30.4 10c-13.2 40.1-15.5 87.5-.6 134l-30.5 9.8c-17.3-54-14.3-108.3.7-153.8z"></path></svg> -->
+                      <i class="fab fa-google-drive"></i>
+                    </span>
+                  <span>Colab</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <i class="fa fa-google" aria-hidden="true"></i> -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa-brands fa-google"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="1%" width="auto">
+        <source src="./static/videos/mj_plugs_final_insertion.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> Our method.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<center>
+  <video autoplay muted controls loop width="500px" height="auto">
+    <source src="./static/videos/mj_plugs_final_insertion.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</center> -->
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video autoplay muted controls loop width="100%" height="auto">
+        <source src="./static/videos/mj_plugs_final_insertion.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <!-- <img src=".static/videos/plugs.gif" alt="Your GIF Description"> -->
+      <h2 class="subtitle has-text-centered">
+         Our method is used to automatically insert a misaligned plug in MuJoCo
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose a new approach for modeling connector insertion environments by learning a quasi-static contact force model instead of a full simulator. Using a feature vector that contains information about the configuration and control, we find a linear mapping adequately captures the relationship between this feature vector and the sensed contact forces.  A novel Linear Model Learning (LML) algorithm is used to solve for the globally optimal mapping in real time without any matrix inversions, resulting in an algorithm that runs in nearly constant time on a GPU as the model size increases.  
+We validate the proposed approach for connector insertion both in simulation and hardware experiments, where the learned model is combined with an optimization-based controller to achieve smooth insertions in the presence of misalignments and uncertainty.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <center>
+            <img src="./static/videos/plugs.gif" alt="Your GIF Description">
+          </center>
+          <!-- <center>
+          <video autoplay muted controls loop width="50%" height="auto">
+            <source src="./static/videos/output_plugs.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          </center> -->
+          <h2 class="subtitle has-text-centered">
+             Successfully insertions for a C13 power plug with an impedance-controlled Franka. 
+          </h2>
+        </div>
+      </div>
+    </section>
+  </div>
+<!-- </section> -->
+
+<!-- <section class="section"> -->
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Feature-Based Contact Force Model</h2>
+        <div class="content has-text-justified">
+          <p>
+              <script src="https://gist.github.com/kevin-tracy/f1f63fbfe6f3570463d4082d04fc75d3.js"></script>
+          </p>
+        </div>
+        <center>
+          <img src="./static/images/cpu_gpu_scaling.png" alt="here is my description of the graph">
+        </center>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <!-- <center>
+          <video autoplay muted controls loop width="50%" height="auto">
+            <source src="./static/videos/output_plugs.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          </center> -->
+          <h2 class="subtitle has-text-centered">
+             Successfully insertions for a C13 power plug with an impedance-controlled Franka. 
+          </h2>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page is based on the  <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
