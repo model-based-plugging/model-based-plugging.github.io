@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Learning Contact Force Models for Connector Insertion">
+        content="Efficient Online Learning of Contact Force Models for Connector Insertion">
   <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,15 +42,25 @@
       });
     });
   </script>
-  <title>Learning Contact Force Models for Connector Insertion</title>
+  <title>Efficient Online Learning of Contact Force Models for Connector Insertion</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 
 
 </head>
@@ -61,7 +71,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Learning Contact Force Models for Plug Insertion</h1>
+          <h1 class="title is-1 publication-title">Efficient Online Learning of Contact Force Models for Connector Insertion</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://kevintracy.info">Kevin Tracy</a><sup>1</sup>,</span>
@@ -131,7 +141,18 @@
                       <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="baseball-ball" class="svg-inline--fa fa-baseball-ball fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M368.5 363.9l28.8-13.9c11.1 22.9 26 43.2 44.1 60.9 34-42.5 54.5-96.3 54.5-154.9 0-58.5-20.4-112.2-54.2-154.6-17.8 17.3-32.6 37.1-43.6 59.5l-28.7-14.1c12.8-26 30-49 50.8-69C375.6 34.7 315 8 248 8 181.1 8 120.5 34.6 75.9 77.7c20.7 19.9 37.9 42.9 50.7 68.8l-28.7 14.1c-11-22.3-25.7-42.1-43.5-59.4C20.4 143.7 0 197.4 0 256c0 58.6 20.4 112.3 54.4 154.7 18.2-17.7 33.2-38 44.3-61l28.8 13.9c-12.9 26.7-30.3 50.3-51.5 70.7 44.5 43.1 105.1 69.7 172 69.7 66.8 0 127.3-26.5 171.9-69.5-21.1-20.4-38.5-43.9-51.4-70.6zm-228.3-32l-30.5-9.8c14.9-46.4 12.7-93.8-.6-134l30.4-10c15 45.6 18 99.9.7 153.8zm216.3-153.4l30.4 10c-13.2 40.1-15.5 87.5-.6 134l-30.5 9.8c-17.3-54-14.3-108.3.7-153.8z"></path></svg> -->
                       <i class="fab fa-google-drive"></i>
                     </span>
-                  <span>Colab</span>
+                  <span>LML Colab</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="fab fa-github"></i> -->
+                      <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="baseball-ball" class="svg-inline--fa fa-baseball-ball fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M368.5 363.9l28.8-13.9c11.1 22.9 26 43.2 44.1 60.9 34-42.5 54.5-96.3 54.5-154.9 0-58.5-20.4-112.2-54.2-154.6-17.8 17.3-32.6 37.1-43.6 59.5l-28.7-14.1c12.8-26 30-49 50.8-69C375.6 34.7 315 8 248 8 181.1 8 120.5 34.6 75.9 77.7c20.7 19.9 37.9 42.9 50.7 68.8l-28.7 14.1c-11-22.3-25.7-42.1-43.5-59.4C20.4 143.7 0 197.4 0 256c0 58.6 20.4 112.3 54.4 154.7 18.2-17.7 33.2-38 44.3-61l28.8 13.9c-12.9 26.7-30.3 50.3-51.5 70.7 44.5 43.1 105.1 69.7 172 69.7 66.8 0 127.3-26.5 171.9-69.5-21.1-20.4-38.5-43.9-51.4-70.6zm-228.3-32l-30.5-9.8c14.9-46.4 12.7-93.8-.6-134l30.4-10c15 45.6 18 99.9.7 153.8zm216.3-153.4l30.4 10c-13.2 40.1-15.5 87.5-.6 134l-30.5 9.8c-17.3-54-14.3-108.3.7-153.8z"></path></svg> -->
+                      <i class="fab fa-google-drive"></i>
+                    </span>
+                  <span>MuJoCo Colab</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -227,6 +248,8 @@ We validate the proposed approach for connector insertion both in simulation and
 <!-- </section> -->
 
 <!-- <section class="section"> -->
+  <br>
+  <br>
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
@@ -234,31 +257,163 @@ We validate the proposed approach for connector insertion both in simulation and
         <h2 class="title is-3">Feature-Based Contact Force Model</h2>
         <div class="content has-text-justified">
           <p>
-              <script src="https://gist.github.com/kevin-tracy/f1f63fbfe6f3570463d4082d04fc75d3.js"></script>
+            We are learning a model that maps an engineered feature vector, $w \in \mathbf{R}^{n_w}$, 
+            to the predicted force torque sensor, $\hat{y} \in \mathbf{R}^6$. The feature vector is a
+             function of the configuration $q \in \mathbf{R}^{n_q}$, and the control $u \in \mathbf{R}^{n_u}$,
+              and is defined as the following:
+            $$ w = \Omega(q, u). $$
+            We then map this feature vector to the force torque sensor with a matrix $G$:
+            $$ \hat{y} = Gw. $$
+            This model is learned online with by solving the following optimization problem:
+            $$ \min_G \quad \sum_{i=1}^N \color{blue}{\underbrace{\color{black}{\| y_i - Gw_i \|_{R^{-1}}^2}}_{\text{model error}}} \color{black}{+} 
+            \color{red}{\underbrace{\color{black}{\| G b\|_2^2}}_{\text{regularizer}}} \color{black}{,} $$
+            where $R \in \mathbf{S}_+^{6}$ is the force torque sensor noise covariance, and $b \in \mathbf{R}^{n_w}$ is a regularization term. 
+            Even when the feature vector is nonlinear in $q$ and $u$, this is still a convex optimization problem that we can solve to global optimality.
           </p>
+          <!-- <p>
+              <script src="https://gist.github.com/kevin-tracy/f1f63fbfe6f3570463d4082d04fc75d3.js"></script>
+          </p> -->
         </div>
-        <center>
+        <!-- <center>
           <img src="./static/images/cpu_gpu_scaling.png" alt="here is my description of the graph">
-        </center>
+        </center> -->
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <section class="hero teaser">
-      <div class="container is-max-desktop">
-        <div class="hero-body">
-          <!-- <center>
-          <video autoplay muted controls loop width="50%" height="auto">
-            <source src="./static/videos/output_plugs.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          </center> -->
+    <br>
+    <br>
+    <br>
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Linear Model Learning (LML) Algorithm</h2>
+          <center>
+            <span class="link-block">
+              <a href="https://github.com/google/nerfies"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <!-- <i class="fab fa-github"></i> -->
+                    <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="baseball-ball" class="svg-inline--fa fa-baseball-ball fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M368.5 363.9l28.8-13.9c11.1 22.9 26 43.2 44.1 60.9 34-42.5 54.5-96.3 54.5-154.9 0-58.5-20.4-112.2-54.2-154.6-17.8 17.3-32.6 37.1-43.6 59.5l-28.7-14.1c12.8-26 30-49 50.8-69C375.6 34.7 315 8 248 8 181.1 8 120.5 34.6 75.9 77.7c20.7 19.9 37.9 42.9 50.7 68.8l-28.7 14.1c-11-22.3-25.7-42.1-43.5-59.4C20.4 143.7 0 197.4 0 256c0 58.6 20.4 112.3 54.4 154.7 18.2-17.7 33.2-38 44.3-61l28.8 13.9c-12.9 26.7-30.3 50.3-51.5 70.7 44.5 43.1 105.1 69.7 172 69.7 66.8 0 127.3-26.5 171.9-69.5-21.1-20.4-38.5-43.9-51.4-70.6zm-228.3-32l-30.5-9.8c14.9-46.4 12.7-93.8-.6-134l30.4-10c15 45.6 18 99.9.7 153.8zm216.3-153.4l30.4 10c-13.2 40.1-15.5 87.5-.6 134l-30.5 9.8c-17.3-54-14.3-108.3.7-153.8z"></path></svg> -->
+                    <i class="fab fa-google-drive"></i>
+                  </span>
+                <span>LML Colab</span>
+                </a>
+            </span>
+          </center>
+          <br>
+          <div class="content has-text-justified">
+            
+            <p>
+              This optimization problem is solved with a fast and parallelizable novel LML algorithm that updates the model in real time as new measurements come in.
+              The LML algorithm maintains a Gaussian belief of the model parameters $\hat{G} \in \mathbf{R}^{6 \times n_w}$, with a shared covariance $\Sigma \in \mathbf{S}_+^{n_w \times n_w}$.
+              <!-- The linearity of the contact model in $w$ allows us to parallelize this problem over the dimensions of the sensor.  -->
+            </p>
+            <p>
+              This belief is initialized with the regularization terms, as the following:
+              $$\begin{align}
+    \hat{G}_{0|0} &= 0, \quad \quad \quad \quad \quad  & \Sigma^{(j)}_{0|0} &= \operatorname{diag}(1 / (b^{(j)})^2),
+\end{align}$$
+              and each time a new measurement and feature vector is available, the LML algorithm is called to update this belief:
+            </p>
+            <!-- <p>
+                <script src="https://gist.github.com/kevin-tracy/f1f63fbfe6f3570463d4082d04fc75d3.js"></script>
+            </p> -->
+          </div>
+          <center>
+            <img src="./static/images/alg_1.png" alt="here is my description of the graph" width="400">
+          </center>
+          <br>
+          <div class="content has-text-justified">
+            <p>
+              This algorithm is entirely free of matrix inversions, meaning each operation is highly parallelizable on a GPU. As a result, the LML algorith scales extremeley well as the complexity of the model increases.
+              To demonstrate this, we show the runtime of the LML algorithm on a CPU and GPU as the sensor dimension and feature vector dimension increase.
+            </p>
+          </div>
+          <center>
+            <img src="./static/images/cpu_gpu_scaling.png" alt="here is my description of the graph">
+          </center>
           <h2 class="subtitle has-text-centered">
-             Successfully insertions for a C13 power plug with an impedance-controlled Franka. 
-          </h2>
+            CPU and GPU runtimes as the LML algorithm is run for various sensor/feature sizes. Despite the number of parameters in the model growing by a factor of 100, the GPU is able to run LML in nearly constant time. 
+         </h2>
         </div>
       </div>
-    </section>
+      <br>
+      <br>
+      <br>
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Experiments</h2>
+            <center>
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="fab fa-github"></i> -->
+                      <!-- <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="baseball-ball" class="svg-inline--fa fa-baseball-ball fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M368.5 363.9l28.8-13.9c11.1 22.9 26 43.2 44.1 60.9 34-42.5 54.5-96.3 54.5-154.9 0-58.5-20.4-112.2-54.2-154.6-17.8 17.3-32.6 37.1-43.6 59.5l-28.7-14.1c12.8-26 30-49 50.8-69C375.6 34.7 315 8 248 8 181.1 8 120.5 34.6 75.9 77.7c20.7 19.9 37.9 42.9 50.7 68.8l-28.7 14.1c-11-22.3-25.7-42.1-43.5-59.4C20.4 143.7 0 197.4 0 256c0 58.6 20.4 112.3 54.4 154.7 18.2-17.7 33.2-38 44.3-61l28.8 13.9c-12.9 26.7-30.3 50.3-51.5 70.7 44.5 43.1 105.1 69.7 172 69.7 66.8 0 127.3-26.5 171.9-69.5-21.1-20.4-38.5-43.9-51.4-70.6zm-228.3-32l-30.5-9.8c14.9-46.4 12.7-93.8-.6-134l30.4-10c15 45.6 18 99.9.7 153.8zm216.3-153.4l30.4 10c-13.2 40.1-15.5 87.5-.6 134l-30.5 9.8c-17.3-54-14.3-108.3.7-153.8z"></path></svg> -->
+                      <i class="fab fa-google-drive"></i>
+                    </span>
+                  <span>MuJoCo Colab</span>
+                  </a>
+              </span>
+            </center>
+            <br>
+            <div class="content has-text-justified">
+              <p>
+                To validate the ideas presented in this paper, we performed experiments in both simulation and on hardware. A full tutorial of our approach is demonstrated in MuJoCo in the colab link above. The LML algorithm is used with
+                a straightforward feature vector to match the force torque sensor data from MuJoCo, after which this model is used in model-based controller that is able to successfuly insert the connector without any added resistance.
+                This example is shown in the video at the top of this page.
+              </p>
+              <br>
+              <p>
+                We also performed experiments on hardware where an impedance-controlled Franka Panda robot with a parallel gripper was able to insert C13 power plugs. First, the validity of our linear model assumption is shown during a calibration sequence, where the real force torque sensor data is compared to the predicted values from our model:
+              </p>
+            </div>
+            <center>
+              <img src="./static/images/sim2real.png" alt="here is my description of the graph" width="600">
+            </center>
+            <h2 class="subtitle has-text-centered">
+              The sim to real gap between our learned model and an experiment. The real force torque sensor data is solid, and the predicted measurements from our learned model are dotted. 
+           </h2>
+            <br>
+            <div class="content has-text-justified">
+              <p>
+                With nice agreement between our model and reality, we now use a model-based controller to drive down the force and torque on the connector:
+                $$
+                \begin{align}
+                \min_u \quad & \color{blue}{\overbrace{\color{black}{
+                    \|\hat{y}\|_2^2
+                }}^{\color{blue}{\text{minimize force/torque}}}} \color{black}{+} \color{red}{\overbrace{\color{black}{
+                    \lambda \|u - u_{old}\|_2^2
+                }}^{\color{red}{\text{stay close to previous u}}}}\\
+                \text{st} \quad & \hat{y} = \hat{G} \Omega (q,u) \\ 
+                & u_{\text{lo}} \leq u - u_{old} \leq u_{\text{hi}}
+                \end{align}
+                $$ 
+                This is a small convex optimization problem where the solutions can be computed $ < 1$ms. 
+                This controller is used to align a set of eight different C13 plugs,
+                where each plug is inserted with a scripted insertion, after which a calibration sequence is performed to learn the model, followed by a controlled insertion.
+              </p>
+
+            </div>
+            <center>
+              <img src="./static/images/insertion_data.png" alt="here is my description of the graph" width="600">
+            </center>
+            <h2 class="subtitle has-text-centered">
+              Magnitude of the force on the plug in the XY axis during insertion of eight different plugs. The scripted insertion leaves a constant force on the plug, after which the policy is used to reduce the force on the connector
+           </h2>
+            <br>
+            <div class="content has-text-justified">
+              <p>
+                <!-- tes -->
+              </p>
+            </div>
+          </div>
+        </div>
+    <!--/ Abstract. -->
+
+
   </div>
 </section>
 
