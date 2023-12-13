@@ -81,17 +81,17 @@
               <a href="https://jainajinkya.github.io/">Ajinkya Jain</a><sup>2</sup>,
             </span>
             <span class="author-block">
-              Keegan Go</a><sup>2</sup>,
+              <a href="https://intrinsic.ai/">Keegan Go</a><sup>2</sup>,
             </span>
             <br>
             <span class="author-block">
               <a href="https://stefan-schaal.net/">Stefan Schaal</a><sup>2</sup>,
             </span>
             <span class="author-block">
-              Tom Erez</a><sup>3</sup>,
+              <a href="https://scholar.google.com/citations?user=gVFnjOcAAAAJ&hl=en">Tom Erez</a><sup>2</sup>,
             </span>
             <span class="author-block">
-              Yuval Tassa</a><sup>3</sup>
+              <a href="https://scholar.google.com/citations?user=CjOTm_4AAAAJ&hl=en">Yuval Tassa</a><sup>2</sup>,
             </span>
           </div>
 
@@ -134,7 +134,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://colab.research.google.com/drive/1GqIgQlWNN4Jn414PRi6pAFGAoaGAUGwb?usp=sharing"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="fab fa-github"></i> -->
@@ -145,7 +145,7 @@
                   </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://colab.research.google.com/drive/1csW12b1x1cgMSSeEMAOe4j2wUM0g9erh?usp=sharing"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="fab fa-github"></i> -->
@@ -289,7 +289,7 @@ We validate the proposed approach for connector insertion both in simulation and
           <h2 class="title is-3">Linear Model Learning (LML) Algorithm</h2>
           <center>
             <span class="link-block">
-              <a href="https://github.com/google/nerfies"
+              <a href="https://colab.research.google.com/drive/1GqIgQlWNN4Jn414PRi6pAFGAoaGAUGwb?usp=sharing"
                  class="external-link button is-normal is-rounded is-dark">
                 <span class="icon">
                     <!-- <i class="fab fa-github"></i> -->
@@ -311,7 +311,7 @@ We validate the proposed approach for connector insertion both in simulation and
             <p>
               This belief is initialized with the regularization terms, as the following:
               $$\begin{align}
-    \hat{G}_{0|0} &= 0, \quad \quad \quad \quad \quad  & \Sigma^{(j)}_{0|0} &= \operatorname{diag}(1 / (b^{(j)})^2),
+    \hat{G}_{0|0} &= 0, \quad \quad \quad \quad \quad  & \Sigma_{0|0} &= \operatorname{diag}(1 / b^2), \nonumber
 \end{align}$$
               and each time a new measurement and feature vector is available, the LML algorithm is called to update this belief:
             </p>
@@ -347,7 +347,7 @@ We validate the proposed approach for connector insertion both in simulation and
             <h2 class="title is-3">Experiments</h2>
             <center>
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://colab.research.google.com/drive/1csW12b1x1cgMSSeEMAOe4j2wUM0g9erh?usp=sharing"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="fab fa-github"></i> -->
@@ -386,9 +386,9 @@ We validate the proposed approach for connector insertion both in simulation and
                     \|\hat{y}\|_2^2
                 }}^{\color{blue}{\text{minimize force/torque}}}} \color{black}{+} \color{red}{\overbrace{\color{black}{
                     \lambda \|u - u_{old}\|_2^2
-                }}^{\color{red}{\text{stay close to previous u}}}}\\
-                \text{st} \quad & \hat{y} = \hat{G} \Omega (q,u) \\ 
-                & u_{\text{lo}} \leq u - u_{old} \leq u_{\text{hi}}
+                }}^{\color{red}{\text{stay close to previous u}}}} \nonumber \\
+                \text{st} \quad & \hat{y} = \hat{G} \Omega (q,u) \nonumber \\ 
+                & u_{\text{lo}} \leq u - u_{old} \leq u_{\text{hi}} \nonumber
                 \end{align}
                 $$ 
                 This is a small convex optimization problem where the solutions can be computed $ < 1$ms. 
